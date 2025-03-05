@@ -26,6 +26,7 @@ jobs:
         port: 2222
         source: ./.github/workflows/run.sh
         target: /home/${{ secrets.USERNAME }}/run.sh
+        debug: true
 
     - name: Execute run.sh on remote server
       uses: appleboy/ssh-action@master
