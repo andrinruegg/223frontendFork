@@ -17,11 +17,11 @@ jobs:
         FIRSTSTEPSREPOSITORYSECRET: ${{ secrets.FIRSTSTEPSREPOSITORYSECRET }}
       run: echo $FIRSTSTEPSREPOSITORYSECRET
 
-    - name: executing remote ssh commands using password 
-     uses: appleboy/ssh-action@ master 
-    with: 
-    host: ${{ secrets.HOST }} 
-    username: ${{ secrets.USERNAME }} 
-    password: ${{ secrets.PASSWORD }} 
-    port: 2222 
-    script: bash ./.github/workflows/run.sh
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: 2222
+        script: bash ./.github/workflows/run.sh
