@@ -17,22 +17,11 @@ jobs:
         FIRSTSTEPSREPOSITORYSECRET: ${{ secrets.FIRSTSTEPSREPOSITORYSECRET }}
       run: echo $FIRSTSTEPSREPOSITORYSECRET
 
-    - name: Copy run.sh to remote server
-      uses: appleboy/scp-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
-        port: 2222
-        source: ./.github/workflows/run.sh
-        target: /home/${{ secrets.USERNAME }}/run.sh
-        debug: true
-
-    - name: Execute run.sh on remote server
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
-        port: 2222
-        script: bash /home/${{ secrets.USERNAME }}/run.sh
+    - name: executing remote ssh commands using password 
+     uses: appleboy/ssh-action@ master 
+    with: 
+    host: ${{ secrets.HOST }} 
+    username: ${{ secrets.USERNAME }} 
+    password: ${{ secrets.PASSWORD }} 
+    port: 2222 
+    script: bash ./.github/workflows/run.sh
