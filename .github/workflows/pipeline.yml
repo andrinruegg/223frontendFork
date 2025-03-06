@@ -35,3 +35,4 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: 2222
         script: bash /home/${{ secrets.USERNAME }}/run.sh
+        
