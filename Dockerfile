@@ -12,7 +12,7 @@ RUN yarn install --production
 COPY react_frontend /app
 
 # Baue das Frontend
-RUN yarn build
+RUN NODE_OPTIONS=--openssl-legacy-provider yarn build
 
 # Nutze Nginx als Webserver für das React-Frontend
 FROM nginx:alpine
