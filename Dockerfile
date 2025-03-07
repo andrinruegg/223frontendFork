@@ -1,30 +1,30 @@
-# Use Node.js 16 Alpine for building
+# Nutze Node.js 16 für den Build-Prozess
 FROM node:16-alpine AS builder
 
-# Set work directory
+# Setze das Arbeitsverzeichnis im Container
 WORKDIR /app
 
-# Copy package.json and install dependencies
-COPY package.json . 
+# Kopiere package.json und installiere Abhängigkeiten
+COPY react_frontend/package.json react_frontend/yarn.lock ./
 RUN yarn install --production
 
-# Copy the rest of the project files
-COPY . .
+# Kopiere den gesamten Code aus `react_frontend`
+COPY react_frontend /app
 
-# Build the production version of the app
+# Baue das Frontend
 RUN yarn build
 
-# Use Nginx as a lightweight web server
+# Nutze Nginx als Webserver für das React-Frontend
 FROM nginx:alpine
 
-# Copy the built React app to Nginx
+# Kopiere das gebaute React-Projekt nach Nginx
 COPY --from=builder /app/build /usr/share/nginx/html
 
-# Copy Nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Falls du eine eigene Nginx-Konfiguration hast, füge sie hinzu
+COPY react_frontend/nginx.conf /etc/nginx/conf.d/default.conf
 
-# Expose port 80
+# Exponiere Port 80
 EXPOSE 80
 
-# Start Nginx
+# Starte Nginx
 CMD ["nginx", "-g", "daemon off;"]
