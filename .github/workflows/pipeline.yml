@@ -6,18 +6,22 @@ jobs:
   hello-world:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
+      
+name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Run script locally
+      
+name: Run script locally
       run: bash ./.github/workflows/run.sh
 
-    - name: Print Secret
+      
+name: Print Secret
       env:
         FIRSTSTEPSREPOSITORYSECRET: ${{ secrets.FIRSTSTEPSREPOSITORYSECRET }}
       run: echo $FIRSTSTEPSREPOSITORYSECRET
 
-    - name: executing remote ssh commands using password
+      
+name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
@@ -27,7 +31,7 @@ jobs:
         script: echo “Hello World”
 
       
-    - name: Execute run.sh on remote server
+name: Execute run.sh on remote server
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
